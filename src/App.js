@@ -1,6 +1,48 @@
-import logo from './logo.svg';
+/*import logo from './logo.svg';*/
 import './App.css';
+import React, {Component} from 'react';
+import {ToDoBanner} from './ToDoBanner';
+import 'bootstrap/dist/css/bootstrap.css';
 
+export default class App extends Component{
+  //  Above we have created a class called App the extends the functionality of the Component class
+
+  //  The export keyword above makes the class available for use outside of the JS file where it is created
+
+
+  constructor(){
+
+    super();
+
+    //React comonents ahve a specail property called "state". The "state" is used to define the state of data (props)
+
+    this.state = {
+      userName:"Nicholas Zuniga",
+      todoItems:[
+        {action:"Watch Anime",done:false},
+        {action:"Eat Soup",done:true},
+        {action:"Vacuum Lawn",done:false},
+        {action:"Solve World Peace",done:false},
+        {action:"Go to Zoo",done:false},
+      ]
+    }
+
+  }//End Constructor
+
+  render = () => 
+  <div id="StartingPoint">
+    {/*Features 1 & 2 */}
+    <ToDoBanner 
+    userName ={this.state.userName}
+    todoItems = {this.state.todoItems}
+    />
+  </div>
+
+}//End Class
+
+
+
+/*
 function App() {
   return (
     <div className="App">
@@ -21,5 +63,5 @@ function App() {
     </div>
   );
 }
-
-export default App;
+*/
+/*export default App;*/
