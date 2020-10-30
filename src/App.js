@@ -75,6 +75,22 @@ export default class App extends Component{
         </tbody>
       </table>
 
+      <div className="bg-secondary text-white text-center p-2">
+
+
+      </div>
+
+          {/*Features 6 and 7 */}
+    <table className="table table-striped table-bordered">
+        <thead>
+          <th>Description</th>
+          <th>Mark Incomplete</th>
+        </thead>
+        <tbody>
+          {this.todoTableRows(true)}
+        </tbody>
+      </table>
+
   </div>
 
 }//End Class
