@@ -2,7 +2,9 @@
 import './App.css';
 import React, {Component} from 'react';
 import {ToDoBanner} from './ToDoBanner';
+import {ToDoRow} from './ToDoRow';
 import 'bootstrap/dist/css/bootstrap.css';
+
 
 export default class App extends Component{
   //  Above we have created a class called App the extends the functionality of the Component class
@@ -29,6 +31,31 @@ export default class App extends Component{
 
   }//End Constructor
 
+  //--Function to display Table rows----------
+  todoTableRows =(doneProperty) => this.state.todoItems.filter(
+    x => x.done == doneProperty).map(
+      y => <ToDoRow
+      key = {y.action}
+      myToDoItem = {y}
+      callback = {this.toggleToDo}//The callback will be invoked (executed, run) when everything in <ToDoRow> is finished AND the user clicks the input box
+      // The data passed into the callback from the ToDoRow Component is passed automataically into the function defined in the callback.
+      />
+
+  );
+
+  //Feature 4
+  //--Function to toggle "done" property to true/false (opposite of what it was)
+  //  .setState allows the in memory data to be updated
+  //  When setState is invoked, React will make a new object with the changes.  Under the hood React will compare the new object with the DOM version of the object.  If there is a difference between those 2 objects then the DOM will get re-drawn (NOT a reload) and then we see the changes.
+
+  toggleToDo = (checkedToDoItem) =>  this.setState(
+    {
+      todoItems:this.state.todoItems.map(
+        x => x.action == checkedToDoItem.action ? {...x, done: !x.done} : x
+      )
+    }
+  );
+
   render = () => 
   <div id="StartingPoint">
     {/*Features 1 & 2 */}
@@ -36,6 +63,18 @@ export default class App extends Component{
     userName ={this.state.userName}
     todoItems = {this.state.todoItems}
     />
+
+    {/*Features 3 and 4 */}
+    <table className="table table-striped table-bordered">
+        <thead>
+          <th>Description</th>
+          <th>Mark Complete</th>
+        </thead>
+        <tbody>
+          {this.todoTableRows(false)}
+        </tbody>
+      </table>
+
   </div>
 
 }//End Class
