@@ -55,6 +55,7 @@ export default class App extends Component{
         x => x.action == checkedToDoItem.action ? {...x, done: !x.done} : x
       )
     }
+    
   );
 //  The createNewTodoCallback method below is the callback for the ToDoCreator component
   //  The "newToDoAction" parameter passed into the createNewTodoCallback method below comes from where the callback it initiated from- which is in the createNewTodo method of the ToDoCreator Component
@@ -70,9 +71,31 @@ export default class App extends Component{
             {action: newToDoDescription, done:false}
           ]
           //By default every new todo should not be done - in other words its done property shave have a value of false
-        })
-      }
+        },
+        () => localStorage.setItem("storedTodos", JSON.stringify(this.state))
+        )//end of setState
+      }//end of if block
 
+  }
+
+  //feature 5e
+  //  The componentDidMount method below is a built in react method to handle logic for when the app "mounts" or "loads"
+  //  The localStorage object is a React built in object that allows persistent local storage much like how cookies work
+  //  localStorage reference: "!([{'https://programmingwithmosh.com/react/localstorage-react/'}])!"
+
+
+  componentDidMount = () => {
+    let storedData = localStorage.getItem("storedTodos");
+
+    this.setState(
+      storedData != null ?  JSON.parse(storedData) : 
+      {
+        userName: "Default UserName",
+        todoItems:[
+          {action: "Default todo", done: false}
+        ]
+      }
+    );
   }
 
   render = () => 
