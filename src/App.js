@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {ToDoBanner} from './ToDoBanner';
 import {ToDoRow} from './ToDoRow';
 import {ToDoCreator} from './ToDoCreator';
+import {VisibilityControl} from './VisibilityControl'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -93,7 +94,8 @@ export default class App extends Component{
         userName: "Default UserName",
         todoItems:[
           {action: "Default todo", done: false}
-        ]
+        ],
+        showCompleted: true//feature 8
       }
     );
   }
@@ -124,10 +126,17 @@ export default class App extends Component{
 
       <div className="bg-secondary text-white text-center p-2">
 
+      {/*Feature 8 */}
+      <VisibilityControl
+        description = "Completed TodoItems"
+        isChecked ={this.state.showCompleted}
+        callback = {checked => this.setState({showCompleted: checked})}
+        />
 
       </div>
 
-          {/*Features 6 and 7 */}
+      {/*Features 6 and 7 */}
+      {this.state.showCompleted &&
     <table className="table table-striped table-bordered">
         <thead>
           <th>Description</th>
@@ -137,6 +146,7 @@ export default class App extends Component{
           {this.todoTableRows(true)}
         </tbody>
       </table>
+      }
 
   </div>
 
