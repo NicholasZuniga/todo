@@ -3,6 +3,7 @@ import './App.css';
 import React, {Component} from 'react';
 import {ToDoBanner} from './ToDoBanner';
 import {ToDoRow} from './ToDoRow';
+import {ToDoCreator} from './ToDoCreator';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -55,6 +56,24 @@ export default class App extends Component{
       )
     }
   );
+//  The createNewTodoCallback method below is the callback for the ToDoCreator component
+  //  The "newToDoAction" parameter passed into the createNewTodoCallback method below comes from where the callback it initiated from- which is in the createNewTodo method of the ToDoCreator Component
+
+  createNewToDoCallback = (newToDoDescription) => {
+    //  The if block below checks if the newly created todo item is NOT already in the list of todos.  If it is NOT already in the list then it adds it as below.  If it is in the list already there is no else block so nothing happens - this is not too user friendly but.... :)
+
+    if(!this.state.todoItems.find(
+      x => x.action == newToDoDescription)){
+        this.setState({
+          todoItems:[
+            ...this.state.todoItems,
+            {action: newToDoDescription, done:false}
+          ]
+          //By default every new todo should not be done - in other words its done property shave have a value of false
+        })
+      }
+
+  }
 
   render = () => 
   <div id="StartingPoint">
@@ -62,6 +81,11 @@ export default class App extends Component{
     <ToDoBanner 
     userName ={this.state.userName}
     todoItems = {this.state.todoItems}
+    />
+
+    {/* Feature 5a */}
+    <ToDoCreator
+    callback = {this.createNewToDoCallback}
     />
 
     {/*Features 3 and 4 */}
